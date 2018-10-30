@@ -62,6 +62,18 @@ server.get('/api/lnotes/:id', (req, res) => {
   });
 })
 
+server.put('/api/lnotes/:id', (req, res) => {
+   const { id } = req.params;
+   const note = req.body;
+   db('lnotes')
+     .where({id: id})
+     .update(note)
+     .then(response => {
+         res.status(200).json(note);
+     })
+     .catch(error => res.status(500).json(error));
+ })
+
 const port = 8000;
 
 server.listen(port, () => {
