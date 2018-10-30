@@ -51,6 +51,17 @@ server.delete('/api/lnotes/:id', (req, res) => {
   });
 })
 
+server.get('/api/lnotes/:id', (req, res) => {
+  const { id } = req.params;
+  db('lnotes').where({id})
+  .then(potatosalad => {
+    res.status(200).json(potatosalad);
+  })
+  .catch(error => {
+    res.status(500).json({error: `Specified note not found`});
+  });
+})
+
 const port = 8000;
 
 server.listen(port, () => {
